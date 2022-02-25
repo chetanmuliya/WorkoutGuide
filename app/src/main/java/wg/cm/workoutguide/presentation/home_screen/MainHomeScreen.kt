@@ -1,11 +1,22 @@
 package wg.cm.workoutguide.presentation.home_screen
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.material.Tab
+import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,10 +42,29 @@ val fontFamily = FontFamily(
 )
 
 @Composable
-fun MainHomeScreen() {
+fun MainHomeScreen(
+    ctx: Context
+) {
+    var selectedTabIndex by remember {
+        mutableStateOf(0)
+    }
     Column(modifier = Modifier.fillMaxWidth()) {
         TopBar()
         DateColumn()
+        ProgramTabView(){
+            selectedTabIndex = it
+        }
+        when(selectedTabIndex){
+            0 -> {
+                Toast.makeText(ctx,"Hello program",Toast.LENGTH_SHORT).show()
+            }
+            1 -> {
+                Toast.makeText(ctx,"Hello Stats",Toast.LENGTH_SHORT).show()
+            }
+            2 -> {
+                Toast.makeText(ctx,"Hello Diet",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
 
@@ -71,21 +101,113 @@ fun DateColumn(modifier: Modifier = Modifier) {
     ) {
         Text(
             text = "Feb 24,2022", modifier = Modifier.padding(horizontal = 5.dp),
-            color = Color.Black, fontSize = 24.sp,
+            color = Color.Black, fontSize = 18.sp,
             fontFamily = fontFamily,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
+            letterSpacing = 0.2.sp
         )
         Text(
             text = "Always remember that You Are Absolutely Unique Just live Everyone Else", modifier = Modifier.padding(5.dp),
             color = Color.Gray, fontSize = 14.sp,
             fontFamily = fontFamily,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
+            letterSpacing = 0.2.sp
         )
+    }
+}
+
+@Composable
+fun ProgramTabView(
+    modifier: Modifier = Modifier,
+    onTabSelected: (selectedIndex: Int) -> Unit
+){
+    var selectedTabIndex by remember {
+        mutableStateOf(0)
+    }
+    val inActiveColor = Color(0xFF777777)
+    TabRow(
+        selectedTabIndex = selectedTabIndex,
+        modifier = Modifier,
+        backgroundColor = Color.Transparent,
+        contentColor = Color.Black
+    ) {
+        Tab(
+            selected = selectedTabIndex==0,
+            unselectedContentColor = inActiveColor,
+            selectedContentColor = Color(0xFFE15888),
+            onClick = {
+                selectedTabIndex = 0
+                onTabSelected(0)
+            }
+        ) {
+            Text(
+                text = "Program",
+                color = Color(0xFFE15888),
+                modifier = Modifier.padding(5.dp),
+                fontFamily = fontFamily,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 0.2.sp
+            )
+        }
+        Tab(
+            selected = selectedTabIndex==1,
+            unselectedContentColor = inActiveColor,
+            selectedContentColor = Color.Black,
+            onClick = {
+                selectedTabIndex = 1
+                onTabSelected(1)
+            }
+        ) {
+            Text(
+                text = "Stats",
+                color = Color(0xFFE15888),
+                modifier = Modifier.padding(5.dp),
+                fontFamily = fontFamily,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 0.2.sp
+            )
+        }
+        Tab(
+            selected = selectedTabIndex==2,
+            unselectedContentColor = inActiveColor,
+            selectedContentColor = Color.Black,
+            onClick = {
+                selectedTabIndex = 2
+                onTabSelected(2)
+            }
+        ) {
+            Text(
+                text = "Diet",
+                color = Color(0xFFE15888),
+                modifier = Modifier.padding(5.dp),
+                fontFamily = fontFamily,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 0.2.sp
+            )
+        }
+        
+    }
+}
+
+@Composable
+fun ProgramListSection(
+    modifier: Modifier= Modifier
+) {
+    LazyColumn(
+        modifier = Modifier
+            .padding(5.dp)
+            .fillMaxSize()
+    ){
+
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ComposablePreview() {
-    MainHomeScreen()
+   // MainHomeScreen(this)
+    ProgramTabView(){
+        0
+    }
+    ProgramListSection()
 }
