@@ -2,6 +2,7 @@ package wg.cm.workoutguide.presentation.home_screen
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,7 +20,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -27,7 +31,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.fragment.app.FragmentManager
 import wg.cm.workoutguide.R
+import wg.cm.workoutguide.presentation.home_screen.model.Workout
 import androidx.compose.material.Icon as Icon
 
 val fontFamily = FontFamily(
@@ -56,7 +62,7 @@ fun MainHomeScreen(
         }
         when(selectedTabIndex){
             0 -> {
-                Toast.makeText(ctx,"Hello program",Toast.LENGTH_SHORT).show()
+                //find
             }
             1 -> {
                 Toast.makeText(ctx,"Hello Stats",Toast.LENGTH_SHORT).show()
@@ -101,7 +107,7 @@ fun DateColumn(modifier: Modifier = Modifier) {
     ) {
         Text(
             text = "Feb 24,2022", modifier = Modifier.padding(horizontal = 5.dp),
-            color = Color.Black, fontSize = 18.sp,
+            fontSize = 18.sp,
             fontFamily = fontFamily,
             fontWeight = FontWeight.SemiBold,
             letterSpacing = 0.2.sp
@@ -191,6 +197,7 @@ fun ProgramTabView(
 
 @Composable
 fun ProgramListSection(
+    workouts: List<Workout>,
     modifier: Modifier= Modifier
 ) {
     LazyColumn(
@@ -198,8 +205,20 @@ fun ProgramListSection(
             .padding(5.dp)
             .fillMaxSize()
     ){
-
+        items(workouts.size){
+            programItem(workouts[it])
+        }
     }
+}
+
+@Composable
+fun programItem(workouts: Workout) {
+    Image(
+        painter = workouts.poster,
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier.fillMaxWidth()
+        )
 }
 
 @Preview(showBackground = true)
@@ -209,5 +228,5 @@ fun ComposablePreview() {
     ProgramTabView(){
         0
     }
-    ProgramListSection()
+    programItem(Workout("test","teesttdesc", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")))
 }
