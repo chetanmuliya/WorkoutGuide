@@ -2,14 +2,14 @@ package wg.cm.workoutguide.presentation.home_screen
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Menu
@@ -34,6 +34,10 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentManager
 import wg.cm.workoutguide.R
 import wg.cm.workoutguide.presentation.home_screen.model.Workout
+import wg.cm.workoutguide.ui.theme.Blue500
+import wg.cm.workoutguide.ui.theme.Grey
+import wg.cm.workoutguide.ui.theme.Pink
+import wg.cm.workoutguide.ui.theme.TextWhite
 import androidx.compose.material.Icon as Icon
 
 val fontFamily = FontFamily(
@@ -47,6 +51,7 @@ val fontFamily = FontFamily(
     Font(R.font.poppins_extralight, FontWeight.ExtraLight)
 )
 
+@ExperimentalMaterialApi
 @Composable
 fun MainHomeScreen(
     ctx: Context
@@ -54,12 +59,45 @@ fun MainHomeScreen(
     var selectedTabIndex by remember {
         mutableStateOf(0)
     }
-    Column(modifier = Modifier.fillMaxWidth()) {
+
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .background(TextWhite)) {
         TopBar()
+        //bootombar
+        val sectionState = remember { mutableStateOf(BarSection.Home) }
+        val navItems = BarSection.values().toList()
+        Scaffold(
+            bottomBar = {
+                BottomBar(
+                    items = navItems,
+                    currentSection = sectionState.value,
+                    onSectionSelected = { sectionState.value = it },
+                )
+            }) { innerPadding ->
+            val modifier = Modifier.padding(innerPadding)
+            Crossfade(
+                modifier = modifier,
+                targetState = sectionState.value
+            )
+            { section ->
+                when (section) {
+                    // BarSection.Home -> HomeView(actions)
+                    //BarSection.List -> VegetableListView(actions)
+                }
+            }
+        }
+
         DateColumn()
         ProgramTabView(){
             selectedTabIndex = it
         }
+        val workoutList = listOf(Workout("test","teesttdesc", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
+            Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
+            Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
+            Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")))
+        ProgramListSection(workouts = workoutList)
+
         when(selectedTabIndex){
             0 -> {
                 //find
@@ -79,20 +117,20 @@ fun TopBar(modifier: Modifier = Modifier) {
     Row(verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
-            .padding(10.dp)
             .fillMaxWidth()
+            .padding(top = 30.dp, start = 24.dp, end = 24.dp)
     ) {
-            Icon(
-                imageVector = Icons.Default.Menu,
+            Image(
+                painter = painterResource(id = R.drawable.ic_menu),
                 contentDescription = "Menu",
                 modifier = Modifier
-                    .size(24.dp)
+                    .size(28.dp)
             )
-            Icon(
-                imageVector = Icons.Default.AccountBox,
-                contentDescription = "Menu",
+            Image(
+                painter = painterResource(id = R.drawable.ic_user),
+                contentDescription = "User",
                 modifier = Modifier
-                    .size(24.dp)
+                    .size(32.dp)
             )
     }
 }
@@ -102,21 +140,23 @@ fun DateColumn(modifier: Modifier = Modifier) {
     Column(horizontalAlignment = Alignment.Start,
         verticalArrangement  = Arrangement.SpaceEvenly,
         modifier = modifier
-            .padding(horizontal = 5.dp)
             .fillMaxWidth()
     ) {
         Text(
-            text = "Feb 24,2022", modifier = Modifier.padding(horizontal = 5.dp),
+            text = "Feb 24,2022", modifier = Modifier.padding(start = 24.dp,end = 24.dp,top = 30.dp),
+            color = Color.Black,
             fontSize = 18.sp,
             fontFamily = fontFamily,
             fontWeight = FontWeight.SemiBold,
             letterSpacing = 0.2.sp
         )
         Text(
-            text = "Always remember that You Are Absolutely Unique Just live Everyone Else", modifier = Modifier.padding(5.dp),
-            color = Color.Gray, fontSize = 14.sp,
+            text = "Always remember that You Are Absolutely Unique Just live Everyone Else",
+            modifier = Modifier.padding(start = 24.dp,end = 24.dp),
+            color = Color.LightGray,
+            fontSize = 14.sp,
             fontFamily = fontFamily,
-            fontWeight = FontWeight.SemiBold,
+            fontWeight = FontWeight.Medium,
             letterSpacing = 0.2.sp
         )
     }
@@ -130,17 +170,20 @@ fun ProgramTabView(
     var selectedTabIndex by remember {
         mutableStateOf(0)
     }
-    val inActiveColor = Color(0xFF777777)
-    TabRow(
+    val activeColor = Pink
+    val inActiveColor = Color.LightGray
+    ScrollableTabRow(
         selectedTabIndex = selectedTabIndex,
-        modifier = Modifier,
+        modifier = Modifier
+            .padding(top = 30.dp)
+            .fillMaxWidth(),
         backgroundColor = Color.Transparent,
-        contentColor = Color.Black
+        contentColor = activeColor,
     ) {
         Tab(
             selected = selectedTabIndex==0,
             unselectedContentColor = inActiveColor,
-            selectedContentColor = Color(0xFFE15888),
+            selectedContentColor = activeColor,
             onClick = {
                 selectedTabIndex = 0
                 onTabSelected(0)
@@ -148,7 +191,7 @@ fun ProgramTabView(
         ) {
             Text(
                 text = "Program",
-                color = Color(0xFFE15888),
+                fontSize = 14.sp,
                 modifier = Modifier.padding(5.dp),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.SemiBold,
@@ -158,7 +201,7 @@ fun ProgramTabView(
         Tab(
             selected = selectedTabIndex==1,
             unselectedContentColor = inActiveColor,
-            selectedContentColor = Color.Black,
+            selectedContentColor = activeColor,
             onClick = {
                 selectedTabIndex = 1
                 onTabSelected(1)
@@ -166,7 +209,7 @@ fun ProgramTabView(
         ) {
             Text(
                 text = "Stats",
-                color = Color(0xFFE15888),
+                fontSize = 14.sp,
                 modifier = Modifier.padding(5.dp),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.SemiBold,
@@ -176,7 +219,7 @@ fun ProgramTabView(
         Tab(
             selected = selectedTabIndex==2,
             unselectedContentColor = inActiveColor,
-            selectedContentColor = Color.Black,
+            selectedContentColor = activeColor,
             onClick = {
                 selectedTabIndex = 2
                 onTabSelected(2)
@@ -184,14 +227,31 @@ fun ProgramTabView(
         ) {
             Text(
                 text = "Diet",
-                color = Color(0xFFE15888),
+                fontSize = 14.sp,
                 modifier = Modifier.padding(5.dp),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.SemiBold,
                 letterSpacing = 0.2.sp
             )
         }
-        
+        Tab(
+            selected = selectedTabIndex==3,
+            unselectedContentColor = inActiveColor,
+            selectedContentColor = activeColor,
+            onClick = {
+                selectedTabIndex = 3
+                onTabSelected(3)
+            }
+        ) {
+            Text(
+                text = "Community",
+                fontSize = 14.sp,
+                modifier = Modifier.padding(5.dp),
+                fontFamily = fontFamily,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 0.2.sp
+            )
+        }
     }
 }
 
@@ -228,5 +288,5 @@ fun ComposablePreview() {
     ProgramTabView(){
         0
     }
-    programItem(Workout("test","teesttdesc", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")))
+    //programItem()
 }
