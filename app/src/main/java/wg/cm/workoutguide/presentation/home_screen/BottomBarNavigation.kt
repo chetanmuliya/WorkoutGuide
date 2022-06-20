@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import wg.cm.workoutguide.R
+import wg.cm.workoutguide.ui.theme.Pink
 
 @ExperimentalMaterialApi
 @Composable
@@ -19,7 +20,7 @@ fun BottomBar(
     BottomNavigation(
         modifier = Modifier.height(50.dp),
         backgroundColor = MaterialTheme.colors.background,
-        contentColor = contentColorFor(MaterialTheme.colors.background)
+        contentColor = contentColorFor(Pink)
     ){
         items.forEach { section ->
 

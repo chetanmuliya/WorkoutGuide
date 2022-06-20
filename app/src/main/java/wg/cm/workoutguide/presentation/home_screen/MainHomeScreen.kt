@@ -64,10 +64,17 @@ fun MainHomeScreen(
         .fillMaxWidth()
         .background(TextWhite)) {
         TopBar()
-        //bootombar
+        DateColumn()
+        //bottombar
         val sectionState = remember { mutableStateOf(BarSection.Home) }
         val navItems = BarSection.values().toList()
+
+
+        ProgramTabView{
+            selectedTabIndex = it
+        }
         Scaffold(
+            backgroundColor = TextWhite,
             bottomBar = {
                 BottomBar(
                     items = navItems,
@@ -75,28 +82,24 @@ fun MainHomeScreen(
                     onSectionSelected = { sectionState.value = it },
                 )
             }) { innerPadding ->
+
             val modifier = Modifier.padding(innerPadding)
             Crossfade(
                 modifier = modifier,
                 targetState = sectionState.value
-            )
-            { section ->
+            ) { section ->
                 when (section) {
-                    // BarSection.Home -> HomeView(actions)
+                    //BarSection.Home -> HomeView(actions)
                     //BarSection.List -> VegetableListView(actions)
                 }
             }
+            val workoutList = listOf(Workout("test","teesttdesc", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
+                Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
+                Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
+                Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")))
+            ProgramListSection(workouts = workoutList)
         }
 
-        DateColumn()
-        ProgramTabView(){
-            selectedTabIndex = it
-        }
-        val workoutList = listOf(Workout("test","teesttdesc", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
-            Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
-            Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
-            Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")))
-        ProgramListSection(workouts = workoutList)
 
         when(selectedTabIndex){
             0 -> {
@@ -263,7 +266,7 @@ fun ProgramListSection(
     LazyColumn(
         modifier = Modifier
             .padding(5.dp)
-            .fillMaxSize()
+            .fillMaxWidth()
     ){
         items(workouts.size){
             programItem(workouts[it])
@@ -279,14 +282,4 @@ fun programItem(workouts: Workout) {
         contentScale = ContentScale.Crop,
         modifier = Modifier.fillMaxWidth()
         )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ComposablePreview() {
-   // MainHomeScreen(this)
-    ProgramTabView(){
-        0
-    }
-    //programItem()
 }
