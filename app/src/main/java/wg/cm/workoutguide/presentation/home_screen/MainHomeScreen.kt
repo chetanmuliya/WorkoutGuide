@@ -93,8 +93,8 @@ fun MainHomeScreen(
                     //BarSection.List -> VegetableListView(actions)
                 }
             }
-            val workoutList = listOf(Workout("test","teesttdesc", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
-                Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
+            val workoutList = listOf(Workout("test","teesttdesc", painterResource(id = R.drawable.workout), listOf("home","cardio","core")),
+                Workout("test2","teesttdesc2", painterResource(id = R.drawable.workout), listOf("home","cardio","core")),
                 Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
                 Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")))
             ProgramListSection(workouts = workoutList)
