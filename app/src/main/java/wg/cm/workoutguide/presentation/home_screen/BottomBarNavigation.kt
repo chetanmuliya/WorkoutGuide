@@ -49,7 +49,7 @@ enum class BarSection(
     val selectedIcon: Int
 ) {
     Home(R.drawable.ic_home, R.drawable.ic_home),
-    List(R.drawable.ic_calendar, R.drawable.ic_menu),
+    List(R.drawable.ic_calendar, R.drawable.ic_calendar),
     ShoppingCart(R.drawable.ic_stats, R.drawable.ic_stats),
     Profile(R.drawable.ic_profile, R.drawable.ic_profile),
 }

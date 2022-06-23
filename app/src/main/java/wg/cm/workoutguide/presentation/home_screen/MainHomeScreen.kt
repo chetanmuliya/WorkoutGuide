@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentManager
 import wg.cm.workoutguide.R
 import wg.cm.workoutguide.presentation.home_screen.model.Workout
+import wg.cm.workoutguide.presentation.home_screen.util.workoutList
 import wg.cm.workoutguide.ui.theme.Blue500
 import wg.cm.workoutguide.ui.theme.Grey
 import wg.cm.workoutguide.ui.theme.Pink
@@ -93,10 +94,6 @@ fun MainHomeScreen(
                     //BarSection.List -> VegetableListView(actions)
                 }
             }
-            val workoutList = listOf(Workout("test","teesttdesc", painterResource(id = R.drawable.workout), listOf("home","cardio","core")),
-                Workout("test2","teesttdesc2", painterResource(id = R.drawable.workout), listOf("home","cardio","core")),
-                Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")),
-                Workout("test2","teesttdesc2", painterResource(id = R.drawable.home_workout), listOf("home","cardio","core")))
             ProgramListSection(workouts = workoutList)
         }
 
@@ -265,7 +262,7 @@ fun ProgramListSection(
 ) {
     LazyColumn(
         modifier = Modifier
-            .padding(5.dp)
+            .padding(start = 5.dp, end = 5.dp, top = 5.dp, bottom = 50.dp)
             .fillMaxWidth()
     ){
         items(workouts.size){
@@ -274,12 +271,4 @@ fun ProgramListSection(
     }
 }
 
-@Composable
-fun programItem(workouts: Workout) {
-    Image(
-        painter = workouts.poster,
-        contentDescription = null,
-        contentScale = ContentScale.Crop,
-        modifier = Modifier.fillMaxWidth()
-        )
-}
+
