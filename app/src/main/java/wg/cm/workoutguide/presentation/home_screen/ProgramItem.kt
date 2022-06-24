@@ -15,10 +15,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import wg.cm.workoutguide.R
 import wg.cm.workoutguide.presentation.home_screen.model.Workout
+import wg.cm.workoutguide.ui.theme.Grey
 import wg.cm.workoutguide.ui.theme.Pink
+import wg.cm.workoutguide.ui.theme.TextWhite
 
 @Composable
 fun programItem(workouts: Workout) {
@@ -68,6 +72,18 @@ fun ImageCard(
             )
             Box(
                 modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.TopEnd
+            ){
+                Image(
+                    painter = painterResource(id = R.drawable.ic_like),
+                    contentDescription = contentDescription,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.wrapContentSize().padding(10.dp)
+                )
+            }
+            Box(
+                modifier = Modifier
                     .fillMaxSize()
                     .padding(12.dp),
                 contentAlignment = Alignment.BottomStart
@@ -86,21 +102,55 @@ fun ImageCard(
                             fontSize = 16.sp
                         )
                     )
-                    Card(
-                        modifier = Modifier.wrapContentSize(),
-                        shape = RoundedCornerShape(10.dp),
-                        elevation = 5.dp
-                    ) {
-                        Text(
-                            text = "Cardio",
-                            style = TextStyle(
-                                fontFamily = fontFamily,
-                                fontWeight = FontWeight.SemiBold,
-                                color = Color.White,
-                                fontSize = 16.sp
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        Card(
+                            modifier = Modifier.wrapContentSize(),
+                            shape = RoundedCornerShape(5.dp),
+                            elevation = 5.dp
+                        ) {
+                            Text(
+                                modifier = Modifier.padding(start = 5.dp,end = 5.dp),
+                                text = "Cardio",
+                                style = TextStyle(
+                                    fontFamily = fontFamily,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Pink,
+                                    fontSize = 12.sp
+                                )
                             )
-                        )
+                        }
+                        Card(
+                            modifier = Modifier
+                                .wrapContentSize()
+                                .padding(start = 5.dp),
+                            shape = RoundedCornerShape(5.dp),
+                            elevation = 5.dp
+                        ) {
+                            Text(
+                                modifier = Modifier.padding(start = 5.dp,end = 5.dp),
+                                text = "HIIT",
+                                style = TextStyle(
+                                    fontFamily = fontFamily,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Pink,
+                                    fontSize = 12.sp,
+                                    letterSpacing = 0.2.sp
+                                )
+                            )
+                        }
                     }
+                    Text(
+                        text = "We've created a high-impact 45 minutes workout sessions to jump start your fitness career",
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        style = TextStyle(
+                            fontFamily = fontFamily,
+                            fontWeight = FontWeight.Medium,
+                            color = Grey,
+                            fontSize = 12.sp,
+                            letterSpacing = 0.2.sp
+                        )
+                    )
                 }
 
             }
