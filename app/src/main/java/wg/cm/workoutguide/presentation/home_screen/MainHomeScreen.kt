@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,7 +33,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentManager
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import wg.cm.workoutguide.R
+import wg.cm.workoutguide.presentation.home_screen.destinations.StatsViewDestination
 import wg.cm.workoutguide.presentation.home_screen.model.Workout
 import wg.cm.workoutguide.presentation.home_screen.util.workoutList
 import wg.cm.workoutguide.ui.theme.Blue500
@@ -54,8 +58,9 @@ val fontFamily = FontFamily(
 
 @ExperimentalMaterialApi
 @Composable
+@Destination(start = true)
 fun MainHomeScreen(
-    ctx: Context
+    navigator: DestinationsNavigator
 ) {
     var selectedTabIndex by remember {
         mutableStateOf(0)
@@ -94,7 +99,7 @@ fun MainHomeScreen(
                     //BarSection.List -> VegetableListView(actions)
                 }
             }
-            ProgramListSection(workouts = workoutList)
+            ProgramListSection(workouts = workoutList,navigator = navigator)
         }
 
 
@@ -103,10 +108,10 @@ fun MainHomeScreen(
                 //find
             }
             1 -> {
-                Toast.makeText(ctx,"Hello Stats",Toast.LENGTH_SHORT).show()
+               //
             }
             2 -> {
-                Toast.makeText(ctx,"Hello Diet",Toast.LENGTH_SHORT).show()
+                //Toast.makeText(ctx,"Hello Diet",Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -258,7 +263,8 @@ fun ProgramTabView(
 @Composable
 fun ProgramListSection(
     workouts: List<Workout>,
-    modifier: Modifier= Modifier
+    modifier: Modifier= Modifier,
+    navigator: DestinationsNavigator
 ) {
     LazyColumn(
         modifier = Modifier
@@ -266,7 +272,14 @@ fun ProgramListSection(
             .fillMaxWidth()
     ){
         items(workouts.size){
-            programItem(workouts[it])
+            programItem(
+                workouts[it],
+                modifier = Modifier.clickable {
+                    navigator.navigate(
+                        StatsViewDestination("JJ")
+                    )
+                }
+            )
         }
     }
 }

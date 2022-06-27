@@ -25,11 +25,14 @@ import wg.cm.workoutguide.ui.theme.Pink
 import wg.cm.workoutguide.ui.theme.TextWhite
 
 @Composable
-fun programItem(workouts: Workout) {
+fun programItem(
+    workouts: Workout,
+    modifier: Modifier = Modifier
+) {
     ImageCard(
         painterId = workouts.poster,
         contentDescription = null,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(bottom = 10.dp),
         title = workouts.name

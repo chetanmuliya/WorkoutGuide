@@ -12,7 +12,9 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.ramcosta.composedestinations.DestinationsNavHost
 import wg.cm.workoutguide.presentation.home_screen.MainHomeScreen
+import wg.cm.workoutguide.presentation.home_screen.NavGraphs
 import wg.cm.workoutguide.ui.theme.WorkoutGuideTheme
 
 @ExperimentalMaterialApi
@@ -24,7 +26,8 @@ class MainActivity : ComponentActivity() {
             WorkoutGuideTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    MainHomeScreen(ctx = this)
+                    //MainHomeScreen(ctx = this)
+                    DestinationsNavHost(navGraph = NavGraphs.root)
                 }
             }
         }

@@ -8,7 +8,8 @@ import com.ramcosta.composedestinations.annotation.Destination
 
 @Composable
 @Destination
-fun StatsView() {
+fun StatsView(
+    symbol: String) {
     Column(modifier = Modifier.fillMaxSize()) {
 
     }
