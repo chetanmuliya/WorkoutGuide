@@ -36,7 +36,8 @@ import androidx.fragment.app.FragmentManager
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import wg.cm.workoutguide.R
-import wg.cm.workoutguide.presentation.home_screen.destinations.StatsViewDestination
+import wg.cm.workoutguide.presentation.destinations.StatsViewDestination
+import wg.cm.workoutguide.presentation.destinations.WorkoutInfoDestination
 import wg.cm.workoutguide.presentation.home_screen.model.Workout
 import wg.cm.workoutguide.presentation.home_screen.util.workoutList
 import wg.cm.workoutguide.ui.theme.Blue500
@@ -276,7 +277,7 @@ fun ProgramListSection(
                 workouts[it],
                 modifier = Modifier.clickable {
                     navigator.navigate(
-                        StatsViewDestination("JJ")
+                        WorkoutInfoDestination("JJ")
                     )
                 }
             )

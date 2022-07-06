@@ -2,4 +2,5 @@
     <string name="app_name">WorkoutGuide</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ProgramOverview">There are only so many creative bodyweight exercises we can do before boredom sets in, But it doesn\'t have to be the way. With this progrerive workout guide the exercise stay the same but your timing, focus and overall workout are entirely different week.</string>
 </resources>

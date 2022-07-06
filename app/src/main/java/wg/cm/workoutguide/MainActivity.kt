@@ -13,8 +13,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.ramcosta.composedestinations.DestinationsNavHost
+import wg.cm.workoutguide.presentation.NavGraphs
 import wg.cm.workoutguide.presentation.home_screen.MainHomeScreen
-import wg.cm.workoutguide.presentation.home_screen.NavGraphs
 import wg.cm.workoutguide.ui.theme.WorkoutGuideTheme
 
 @ExperimentalMaterialApi
