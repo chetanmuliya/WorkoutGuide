@@ -32,7 +32,10 @@ fun WorkoutInfo(
     var selectedTabIndex by remember {
         mutableStateOf(0)
     }
-
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+    ){
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.Black)
@@ -40,7 +43,7 @@ fun WorkoutInfo(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-        ){
+        ) {
 
             Image(
                 painter = painterResource(id = R.drawable.workout),
@@ -64,9 +67,10 @@ fun WorkoutInfo(
                         )
                     )
             )
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.TopStart)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.TopStart)
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_arrow_back),
@@ -93,34 +97,34 @@ fun WorkoutInfo(
             modifier = Modifier.padding(start = 15.dp)
         )
         Spacer(modifier = Modifier.height(18.dp))
-        OverviewTabView{
+        OverviewTabView {
             selectedTabIndex = it
         }
-        when(selectedTabIndex){
+        when (selectedTabIndex) {
             0 -> {
                 ProgramOverviewView(symbol = "")
             }
             1 -> {
-                //
-            }
-            2 -> {
-                //Toast.makeText(ctx,"Hello Diet",Toast.LENGTH_SHORT).show()
+                ProgramScheduleView(symbol = "")
             }
         }
+
+      }
         Box(modifier = Modifier
-            .fillMaxSize()) {
+            .fillMaxWidth()
+            .background(Color.Black)
+            .align(Alignment.BottomCenter)) {
             Button(
                 onClick = { /*TODO*/ },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth().padding(start = 10.dp, end = 10.dp)
+
             ) {
                 Text(
                     text = "Start the Program"
                 )
             }
         }
-
     }
 
 }

@@ -17,8 +17,7 @@ import wg.cm.workoutguide.R
 import wg.cm.workoutguide.presentation.home_screen.fontFamily
 
 @Composable
-@Destination
-fun ProgramOverviewView(
+fun ProgramScheduleView(
     symbol: String
 ) {
     Column(modifier = Modifier
@@ -29,40 +28,25 @@ fun ProgramOverviewView(
 
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = stringResource(R.string.ProgramOverview),
+            text = stringResource(R.string.week_1),
+            fontWeight = FontWeight.Bold,
+            fontFamily = fontFamily,
+            fontSize = 18.sp
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            text = stringResource(R.string.week_1_desc),
             fontWeight = FontWeight.Medium,
             fontFamily = fontFamily,
             fontSize = 14.sp
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = stringResource(R.string.ProgramOverview),
+            text = stringResource(R.string.week_1_desc),
             fontWeight = FontWeight.Medium,
             fontFamily = fontFamily,
             fontSize = 14.sp
         )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = stringResource(R.string.ProgramOverview),
-            fontWeight = FontWeight.Medium,
-            fontFamily = fontFamily,
-            fontSize = 14.sp
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = stringResource(R.string.ProgramOverview),
-            fontWeight = FontWeight.Medium,
-            fontFamily = fontFamily,
-            fontSize = 14.sp
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = stringResource(R.string.ProgramOverview),
-            fontWeight = FontWeight.Medium,
-            fontFamily = fontFamily,
-            fontSize = 14.sp
-        )
-        Spacer(modifier = Modifier.height(20.dp))
 
     }
 }
