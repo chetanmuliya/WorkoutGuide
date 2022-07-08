@@ -18,15 +18,18 @@ import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import wg.cm.workoutguide.R
+import wg.cm.workoutguide.presentation.destinations.ExerciseScreenDestination
 import wg.cm.workoutguide.presentation.destinations.ProgramOverviewViewDestination
 import wg.cm.workoutguide.presentation.destinations.WorkoutInfoDestination
 import wg.cm.workoutguide.presentation.home_screen.fontFamily
+import wg.cm.workoutguide.presentation.workout_screen.ExerciseScreen
 import wg.cm.workoutguide.ui.theme.Pink
 import wg.cm.workoutguide.ui.theme.TextWhite
 
 @Composable
 @Destination
 fun WorkoutInfo(
+    navigator: DestinationsNavigator,
     symbol: String
 ) {
     var selectedTabIndex by remember {
@@ -115,9 +118,13 @@ fun WorkoutInfo(
             .background(Color.Black)
             .align(Alignment.BottomCenter)) {
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navigator.navigate(
+                    ExerciseScreenDestination(""))
+                          },
                 modifier = Modifier
-                    .fillMaxWidth().padding(start = 10.dp, end = 10.dp)
+                    .fillMaxWidth()
+                    .padding(start = 10.dp, end = 10.dp)
 
             ) {
                 Text(
