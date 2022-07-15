@@ -1,7 +1,6 @@
 package wg.cm.workoutguide.presentation.workout_screen
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,16 +11,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.PathEffect
-import androidx.compose.foundation.Canvas
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.VectorProperty
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
@@ -39,6 +39,7 @@ fun ExerciseScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Charcoal)
+            .verticalScroll(rememberScrollState())
     ) {
         Box(
             modifier = Modifier
@@ -187,13 +188,29 @@ fun ExerciseScreen(
         }
         Spacer(modifier = Modifier.height(20.dp))
         setsCard()
+        Spacer(modifier = Modifier.height(20.dp))
+        setGuidanceVideo()
     }
+}
+
+@Composable
+fun setGuidanceVideo() {
+    Text(
+        text = "How to perform this Exercise?  ",
+        fontWeight = FontWeight.SemiBold,
+        fontFamily = fontFamily,
+        style = TextStyle(textDecoration = TextDecoration.Underline),
+        color = TextWhite,
+        textAlign = TextAlign.Center,
+        fontSize = 18.sp,
+        modifier = Modifier.fillMaxWidth()
+    )
 }
 
 @Composable
 fun setsCard() {
     Column(modifier = Modifier
-        .fillMaxSize()) {
+        .fillMaxWidth()) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -220,7 +237,7 @@ fun setsCard() {
                         color = TextWhite,
                         center = Offset(x = canvasWidth / 2, y = canvasHeight / 2),
                         radius = size.minDimension / 2,
-                        style = Stroke(10F)
+                        style = Stroke(5F)
                     )
                 }
                 Text(
@@ -251,55 +268,163 @@ fun setsCard() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.Gray),
-            shape = RoundedCornerShape(20.dp)
+                .padding(10.dp),
+            backgroundColor = lightCharcoal,
+            shape = RoundedCornerShape(10.dp)
         ){
-            Text(
-                text = "12",
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = fontFamily,
-                color = Pink,
-                textAlign = TextAlign.Center,
-                fontSize = 18.sp,
-                modifier = Modifier
-                    .weight(1f)
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth())
+            {
+                Spacer(modifier = Modifier.width(10.dp))
+                Box(modifier = Modifier.size(40.dp))
+                {
+                    Canvas(
+                        modifier = Modifier
+                            .width(40.dp)
+                            .height(40.dp)
+                            .padding(10.dp)
+                    ) {
+                        val canvasWidth = size.width
+                        val canvasHeight = size.height
+
+                        drawCircle(
+                            color = TextWhite,
+                            center = Offset(x = canvasWidth / 2, y = canvasHeight / 2),
+                            radius = size.minDimension / 2,
+                            style = Stroke(5F)
+                        )
+                    }
+                    Text(
+                        text = "2",
+                        fontWeight = FontWeight.SemiBold,
+                        fontFamily = fontFamily,
+                        color = TextWhite,
+                        textAlign = TextAlign.Center,
+                        fontSize = 10.sp,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                    )
+                }
+                Text(
+                    text = "12",
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = fontFamily,
+                    color = Pink,
+                    fontSize = 18.sp,
+                    modifier = Modifier
+                        .weight(1f)
+                        .align(Alignment.CenterVertically)
+                )
+            }
+
         }
         Spacer(modifier = Modifier.height(10.dp))
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.Gray),
-            shape = RoundedCornerShape(20.dp)
+                .padding(10.dp),
+            backgroundColor = lightCharcoal,
+            shape = RoundedCornerShape(10.dp)
         ){
-            Text(
-                text = "12",
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = fontFamily,
-                color = Pink,
-                textAlign = TextAlign.Center,
-                fontSize = 18.sp,
-                modifier = Modifier
-                    .weight(1f)
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth())
+            {
+                Spacer(modifier = Modifier.width(10.dp))
+                Box(modifier = Modifier.size(40.dp))
+                {
+                    Canvas(
+                        modifier = Modifier
+                            .width(40.dp)
+                            .height(40.dp)
+                            .padding(10.dp)
+                    ) {
+                        val canvasWidth = size.width
+                        val canvasHeight = size.height
+
+                        drawCircle(
+                            color = TextWhite,
+                            center = Offset(x = canvasWidth / 2, y = canvasHeight / 2),
+                            radius = size.minDimension / 2,
+                            style = Stroke(5F)
+                        )
+                    }
+                    Text(
+                        text = "3",
+                        fontWeight = FontWeight.SemiBold,
+                        fontFamily = fontFamily,
+                        color = TextWhite,
+                        textAlign = TextAlign.Center,
+                        fontSize = 10.sp,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                    )
+                }
+                Text(
+                    text = "12",
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = fontFamily,
+                    color = Pink,
+                    fontSize = 18.sp,
+                    modifier = Modifier
+                        .weight(1f)
+                        .align(Alignment.CenterVertically)
+                )
+            }
+
         }
         Spacer(modifier = Modifier.height(10.dp))
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.Gray),
-            shape = RoundedCornerShape(20.dp)
+                .padding(10.dp),
+            backgroundColor = lightCharcoal,
+            shape = RoundedCornerShape(10.dp)
         ){
-            Text(
-                text = "12",
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = fontFamily,
-                color = Pink,
-                textAlign = TextAlign.Center,
-                fontSize = 18.sp,
-                modifier = Modifier
-                    .weight(1f)
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth())
+            {
+                Spacer(modifier = Modifier.width(10.dp))
+                Box(modifier = Modifier.size(40.dp))
+                {
+                    Canvas(
+                        modifier = Modifier
+                            .width(40.dp)
+                            .height(40.dp)
+                            .padding(10.dp)
+                    ) {
+                        val canvasWidth = size.width
+                        val canvasHeight = size.height
+
+                        drawCircle(
+                            color = TextWhite,
+                            center = Offset(x = canvasWidth / 2, y = canvasHeight / 2),
+                            radius = size.minDimension / 2,
+                            style = Stroke(5F)
+                        )
+                    }
+                    Text(
+                        text = "4",
+                        fontWeight = FontWeight.SemiBold,
+                        fontFamily = fontFamily,
+                        color = TextWhite,
+                        textAlign = TextAlign.Center,
+                        fontSize = 10.sp,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                    )
+                }
+                Text(
+                    text = "12",
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = fontFamily,
+                    color = Pink,
+                    fontSize = 18.sp,
+                    modifier = Modifier
+                        .weight(1f)
+                        .align(Alignment.CenterVertically)
+                )
+            }
+
         }
     }
 
