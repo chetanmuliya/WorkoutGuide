@@ -26,6 +26,7 @@ import wg.cm.workoutguide.presentation.workout_screen.ExerciseScreen
 import wg.cm.workoutguide.ui.theme.Pink
 import wg.cm.workoutguide.ui.theme.TextWhite
 
+@ExperimentalMaterialApi
 @Composable
 @Destination
 fun WorkoutInfo(
@@ -120,7 +121,8 @@ fun WorkoutInfo(
             Button(
                 onClick = {
                     navigator.navigate(
-                    ExerciseScreenDestination(""))
+                    ExerciseScreenDestination("")
+                    )
                           },
                 modifier = Modifier
                     .fillMaxWidth()

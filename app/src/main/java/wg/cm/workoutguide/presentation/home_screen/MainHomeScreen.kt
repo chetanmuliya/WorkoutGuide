@@ -261,6 +261,7 @@ fun ProgramTabView(
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun ProgramListSection(
     workouts: List<Workout>,
