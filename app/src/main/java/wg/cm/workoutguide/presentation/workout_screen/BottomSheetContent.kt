@@ -2,9 +2,11 @@ package wg.cm.workoutguide.presentation.workout_screen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -13,13 +15,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import wg.cm.workoutguide.presentation.home_screen.fontFamily
 import wg.cm.workoutguide.ui.theme.Pink
 import wg.cm.workoutguide.ui.theme.TextWhite
 
 @ExperimentalMaterialApi
 @Composable
-fun BottomSheetContent() {
+fun BottomSheetContent(bottomSheetScaffoldState: BottomSheetScaffoldState) {
+
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -29,7 +34,14 @@ fun BottomSheetContent() {
             painter = painterResource(id = wg.cm.workoutguide.R.drawable.ic_baseline_cancel),
             modifier = Modifier
                 .align(Alignment.End)
-                .padding(end = 10.dp, top = 10.dp),
+                .padding(end = 10.dp, top = 10.dp)
+                .clickable {
+                           coroutineScope.launch {
+                               if (bottomSheetScaffoldState.bottomSheetState.isExpanded) {
+                                   bottomSheetScaffoldState.bottomSheetState.collapse()
+                               }
+                           }
+                },
             contentDescription ="drop down arrow"
         )
         Spacer(modifier = Modifier.height(40.dp))
@@ -67,7 +79,7 @@ fun BottomSheetContent() {
                 textAlign = TextAlign.Center,
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
-            val replist = (1..50).toList()
+            val replist = (1..100).toList()
             Spinner(
                 replist,
                 12,
@@ -82,7 +94,7 @@ fun BottomSheetContent() {
                 textAlign = TextAlign.Center,
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
-            val list = (10..300).toList()
+            val list = (10..200).toList()
             Spinner(
                 list,
                 100,
@@ -109,7 +121,9 @@ fun Spinner(
 ) {
     Spinner(
         modifier = Modifier.wrapContentSize(),
-        dropDownModifier = Modifier.wrapContentSize(),
+        dropDownModifier = Modifier
+            .wrapContentSize()
+            .height(200.dp),
         items = availableQuantities,
         selectedItem = selectedItem,
         onItemSelected = onItemSelected,
@@ -121,7 +135,7 @@ fun Spinner(
                     .background(Pink),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(item.toString())
+                Text(text = item)
 
                 Icon(
                     painter = painterResource(id = wg.cm.workoutguide.R.drawable.ic_arrow_drop_down),

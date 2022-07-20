@@ -19,16 +19,17 @@ fun <T> Spinner(
     items: List<T>,
     selectedItem: T,
     onItemSelected: (T) -> Unit,
-    selectedItemFactory: @Composable (Modifier, T) -> Unit,
+    selectedItemFactory: @Composable (Modifier, String) -> Unit,
     dropdownItemFactory: @Composable (T, Int) -> Unit,
 ) {
     var expanded: Boolean by remember { mutableStateOf(false) }
+    var selectedText: String by remember { mutableStateOf("12") }
 
     Box(modifier = modifier.wrapContentSize(Alignment.TopStart)) {
         selectedItemFactory(
             Modifier
                 .clickable { expanded = true },
-            selectedItem
+            selectedText
         )
 
         androidx.compose.material.DropdownMenu(
@@ -40,6 +41,7 @@ fun <T> Spinner(
                 DropdownMenuItem(onClick = {
                     onItemSelected(items[index])
                     expanded = false
+                    selectedText = items[index].toString()
                 }) {
                     dropdownItemFactory(element, index)
                 }

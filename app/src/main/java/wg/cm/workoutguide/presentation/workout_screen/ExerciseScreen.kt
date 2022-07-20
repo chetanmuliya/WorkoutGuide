@@ -41,12 +41,15 @@ fun ExerciseScreen(
     val coroutineScope = rememberCoroutineScope()
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
+        sheetShape = RoundedCornerShape(topStart = 12.dp,topEnd = 12.dp),
+        sheetBackgroundColor = bottomSheetCharcoal,
+        drawerScrimColor = Color.Black,
         sheetContent = {
             Box(
                 Modifier
                     .fillMaxWidth()
             ) {
-                BottomSheetContent()
+                BottomSheetContent(bottomSheetScaffoldState)
             }
         },
         sheetPeekHeight = 0.dp
@@ -225,6 +228,17 @@ fun setGuidanceVideo() {
         modifier = Modifier.fillMaxWidth()
     )
 }
+@ExperimentalMaterialApi
+fun openBottomSheet(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope: CoroutineScope){
+    coroutineScope.launch {
+
+        if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
+            bottomSheetScaffoldState.bottomSheetState.expand()
+        } else {
+            bottomSheetScaffoldState.bottomSheetState.collapse()
+        }
+    }
+}
 
 @ExperimentalMaterialApi
 @Composable
@@ -236,21 +250,16 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                 .fillMaxWidth()
                 .padding(10.dp)
                 .clickable {
-                    coroutineScope.launch {
-
-                        if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
-                            bottomSheetScaffoldState.bottomSheetState.expand()
-                        } else {
-                            bottomSheetScaffoldState.bottomSheetState.collapse()
-                        }
-                    }
+                    openBottomSheet(bottomSheetScaffoldState, coroutineScope)
                 },
             backgroundColor = lightCharcoal,
             shape = RoundedCornerShape(10.dp)
         ){
             Row(
-                modifier = Modifier.fillMaxWidth())
-            {
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Spacer(modifier = Modifier.width(10.dp))
                 Box(modifier = Modifier.size(40.dp))
                 {
@@ -291,6 +300,12 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                         .weight(1f)
                         .align(Alignment.CenterVertically)
                 )
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_add_circle),
+                    contentDescription ="add reps and sets",
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
+                )
             }
 
         }
@@ -298,13 +313,18 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(10.dp)
+                .clickable {
+                    openBottomSheet(bottomSheetScaffoldState, coroutineScope)
+                },
             backgroundColor = lightCharcoal,
             shape = RoundedCornerShape(10.dp)
         ){
             Row(
-                modifier = Modifier.fillMaxWidth())
-            {
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Spacer(modifier = Modifier.width(10.dp))
                 Box(modifier = Modifier.size(40.dp))
                 {
@@ -325,7 +345,7 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                         )
                     }
                     Text(
-                        text = "2",
+                        text = "1",
                         fontWeight = FontWeight.SemiBold,
                         fontFamily = fontFamily,
                         color = TextWhite,
@@ -345,6 +365,12 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                         .weight(1f)
                         .align(Alignment.CenterVertically)
                 )
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_add_circle),
+                    contentDescription ="add reps and sets",
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
+                )
             }
 
         }
@@ -352,13 +378,18 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(10.dp)
+                .clickable {
+                    openBottomSheet(bottomSheetScaffoldState, coroutineScope)
+                },
             backgroundColor = lightCharcoal,
             shape = RoundedCornerShape(10.dp)
         ){
             Row(
-                modifier = Modifier.fillMaxWidth())
-            {
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Spacer(modifier = Modifier.width(10.dp))
                 Box(modifier = Modifier.size(40.dp))
                 {
@@ -379,7 +410,7 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                         )
                     }
                     Text(
-                        text = "3",
+                        text = "1",
                         fontWeight = FontWeight.SemiBold,
                         fontFamily = fontFamily,
                         color = TextWhite,
@@ -399,6 +430,12 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                         .weight(1f)
                         .align(Alignment.CenterVertically)
                 )
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_add_circle),
+                    contentDescription ="add reps and sets",
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
+                )
             }
 
         }
@@ -406,13 +443,18 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(10.dp)
+                .clickable {
+                    openBottomSheet(bottomSheetScaffoldState, coroutineScope)
+                },
             backgroundColor = lightCharcoal,
             shape = RoundedCornerShape(10.dp)
         ){
             Row(
-                modifier = Modifier.fillMaxWidth())
-            {
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Spacer(modifier = Modifier.width(10.dp))
                 Box(modifier = Modifier.size(40.dp))
                 {
@@ -433,7 +475,7 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                         )
                     }
                     Text(
-                        text = "4",
+                        text = "1",
                         fontWeight = FontWeight.SemiBold,
                         fontFamily = fontFamily,
                         color = TextWhite,
@@ -452,6 +494,12 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                     modifier = Modifier
                         .weight(1f)
                         .align(Alignment.CenterVertically)
+                )
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_add_circle),
+                    contentDescription ="add reps and sets",
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
                 )
             }
 
