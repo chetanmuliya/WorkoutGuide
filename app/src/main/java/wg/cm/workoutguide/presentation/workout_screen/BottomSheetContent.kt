@@ -5,17 +5,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import wg.cm.workoutguide.data.datastore.DataStorePreference
 import wg.cm.workoutguide.presentation.home_screen.fontFamily
 import wg.cm.workoutguide.ui.theme.Pink
 import wg.cm.workoutguide.ui.theme.TextWhite
@@ -24,7 +25,12 @@ import wg.cm.workoutguide.ui.theme.TextWhite
 @Composable
 fun BottomSheetContent(bottomSheetScaffoldState: BottomSheetScaffoldState) {
 
+    val context = LocalContext.current
+    val dataStore = DataStorePreference(context)
     val coroutineScope = rememberCoroutineScope()
+    var selectedRepText by remember { mutableStateOf("") }
+    var selectedWeightText by remember { mutableStateOf("") }
+    val repsWeightsIndex = dataStore.getRepsWeightIndex.collectAsState(initial = "")
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -83,7 +89,9 @@ fun BottomSheetContent(bottomSheetScaffoldState: BottomSheetScaffoldState) {
             Spinner(
                 replist,
                 12,
-                onItemSelected = {})
+                onItemSelected = {
+                    selectedRepText = it.toString()
+                })
             Spacer(modifier = Modifier.width(30.dp))
             Text(
                 text = "Weights (kg)",
@@ -98,11 +106,25 @@ fun BottomSheetContent(bottomSheetScaffoldState: BottomSheetScaffoldState) {
             Spinner(
                 list,
                 100,
-                onItemSelected = {})
+                onItemSelected = {
+                    selectedWeightText = it.toString()
+                })
         }
         Spacer(modifier = Modifier.height(20.dp))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                coroutineScope.launch {
+                    if (repsWeightsIndex.value!! == 1)
+                        dataStore.saveRepsWeight("$selectedWeightText kg x $selectedRepText reps")
+                    if (repsWeightsIndex.value!! == 2)
+                        dataStore.saveSet2RepsWeight("$selectedWeightText kg x $selectedRepText reps")
+                    if (repsWeightsIndex.value!! == 3)
+                        dataStore.saveSet3RepsWeight("$selectedWeightText kg x $selectedRepText reps")
+                    if (repsWeightsIndex.value!! == 4)
+                        dataStore.saveSet4RepsWeight("$selectedWeightText kg x $selectedRepText reps")
+                    bottomSheetScaffoldState.bottomSheetState.collapse()
+                }
+            },
             border = BorderStroke(2.dp, Pink),
             modifier = Modifier.align(Alignment.CenterHorizontally),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)

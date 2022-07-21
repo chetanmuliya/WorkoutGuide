@@ -4,8 +4,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -13,6 +12,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -25,6 +25,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import wg.cm.workoutguide.R
+import wg.cm.workoutguide.data.datastore.DataStorePreference
 import wg.cm.workoutguide.presentation.home_screen.fontFamily
 import wg.cm.workoutguide.ui.theme.*
 import androidx.compose.foundation.layout.Box as Box
@@ -243,6 +244,14 @@ fun openBottomSheet(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutin
 @ExperimentalMaterialApi
 @Composable
 fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope: CoroutineScope) {
+
+    val context = LocalContext.current
+    val dataStore = DataStorePreference(context)
+    val set1RepsWeights = dataStore.getRepsWeight.collectAsState(initial = "")
+    val set2RepsWeights = dataStore.getSet2RepsWeight.collectAsState(initial = "")
+    val set3RepsWeights = dataStore.getSet3RepsWeight.collectAsState(initial = "")
+    val set4RepsWeights = dataStore.getSet4RepsWeight.collectAsState(initial = "")
+
     Column(modifier = Modifier
         .fillMaxWidth()) {
         Card(
@@ -250,6 +259,9 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                 .fillMaxWidth()
                 .padding(10.dp)
                 .clickable {
+                    coroutineScope.launch {
+                        dataStore.saveRepsWeightIndex(1)
+                    }
                     openBottomSheet(bottomSheetScaffoldState, coroutineScope)
                 },
             backgroundColor = lightCharcoal,
@@ -291,7 +303,7 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                 )
                 }
                 Text(
-                    text = "12",
+                    text = set1RepsWeights.value!!,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = fontFamily,
                     color = Pink,
@@ -315,6 +327,9 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                 .fillMaxWidth()
                 .padding(10.dp)
                 .clickable {
+                    coroutineScope.launch {
+                        dataStore.saveRepsWeightIndex(2)
+                    }
                     openBottomSheet(bottomSheetScaffoldState, coroutineScope)
                 },
             backgroundColor = lightCharcoal,
@@ -356,7 +371,7 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                     )
                 }
                 Text(
-                    text = "12",
+                    text = set2RepsWeights.value!!,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = fontFamily,
                     color = Pink,
@@ -380,6 +395,9 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                 .fillMaxWidth()
                 .padding(10.dp)
                 .clickable {
+                    coroutineScope.launch {
+                        dataStore.saveRepsWeightIndex(3)
+                    }
                     openBottomSheet(bottomSheetScaffoldState, coroutineScope)
                 },
             backgroundColor = lightCharcoal,
@@ -421,7 +439,7 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                     )
                 }
                 Text(
-                    text = "12",
+                    text = set3RepsWeights.value!!,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = fontFamily,
                     color = Pink,
@@ -445,6 +463,9 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                 .fillMaxWidth()
                 .padding(10.dp)
                 .clickable {
+                    coroutineScope.launch {
+                        dataStore.saveRepsWeightIndex(4)
+                    }
                     openBottomSheet(bottomSheetScaffoldState, coroutineScope)
                 },
             backgroundColor = lightCharcoal,
@@ -486,7 +507,7 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                     )
                 }
                 Text(
-                    text = "12",
+                    text = set4RepsWeights.value!!,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = fontFamily,
                     color = Pink,
