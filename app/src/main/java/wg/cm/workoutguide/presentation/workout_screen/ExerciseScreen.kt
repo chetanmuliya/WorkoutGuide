@@ -1,5 +1,7 @@
 package wg.cm.workoutguide.presentation.workout_screen
 
+import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +23,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -36,6 +40,7 @@ import androidx.compose.foundation.layout.Box as Box
 fun ExerciseScreen(
     symbol: String
 ) {
+    val dataStore = DataStorePreference(LocalContext.current)
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )
@@ -212,10 +217,19 @@ fun ExerciseScreen(
             setsCard(bottomSheetScaffoldState,coroutineScope)
             Spacer(modifier = Modifier.height(20.dp))
             setGuidanceVideo()
+            //TestScreen()
         }
     }
 }
 
+/*@Composable
+fun TestScreen() {
+    val navCOn = rememberNavController()
+    BackHandler(true,onBack = {
+       // Log.d("TestScreen: ****", "TestScreen: **************")
+        navCOn.navigateUp()
+    })
+}*/
 @Composable
 fun setGuidanceVideo() {
     Text(
@@ -303,7 +317,7 @@ fun setsCard(bottomSheetScaffoldState: BottomSheetScaffoldState, coroutineScope:
                 )
                 }
                 Text(
-                    text = set1RepsWeights.value!!,
+                    text = if(set1RepsWeights.value!!.isEmpty()) "12" else set1RepsWeights.value!! ,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = fontFamily,
                     color = Pink,

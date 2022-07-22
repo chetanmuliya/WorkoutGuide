@@ -114,14 +114,7 @@ fun BottomSheetContent(bottomSheetScaffoldState: BottomSheetScaffoldState) {
         Button(
             onClick = {
                 coroutineScope.launch {
-                    if (repsWeightsIndex.value!! == 1)
-                        dataStore.saveRepsWeight("$selectedWeightText kg x $selectedRepText reps")
-                    if (repsWeightsIndex.value!! == 2)
-                        dataStore.saveSet2RepsWeight("$selectedWeightText kg x $selectedRepText reps")
-                    if (repsWeightsIndex.value!! == 3)
-                        dataStore.saveSet3RepsWeight("$selectedWeightText kg x $selectedRepText reps")
-                    if (repsWeightsIndex.value!! == 4)
-                        dataStore.saveSet4RepsWeight("$selectedWeightText kg x $selectedRepText reps")
+                    setRepsWeights(repsWeightsIndex as State<Int>,dataStore,selectedRepText,selectedWeightText)
                     bottomSheetScaffoldState.bottomSheetState.collapse()
                 }
             },
@@ -133,6 +126,22 @@ fun BottomSheetContent(bottomSheetScaffoldState: BottomSheetScaffoldState) {
         }
         Spacer(modifier = Modifier.height(30.dp))
     }
+}
+
+suspend fun setRepsWeights(
+    repsWeightsIndex: State<Int>,
+    dataStore: DataStorePreference,
+    selectedRepText: String,
+    selectedWeightText: String
+) {
+    if (repsWeightsIndex.value == 1)
+        dataStore.saveRepsWeight("$selectedWeightText kg x $selectedRepText reps")
+    if (repsWeightsIndex.value == 2)
+        dataStore.saveSet2RepsWeight("$selectedWeightText kg x $selectedRepText reps")
+    if (repsWeightsIndex.value == 3)
+        dataStore.saveSet3RepsWeight("$selectedWeightText kg x $selectedRepText reps")
+    if (repsWeightsIndex.value == 4)
+        dataStore.saveSet4RepsWeight("$selectedWeightText kg x $selectedRepText reps")
 }
 
 @Composable

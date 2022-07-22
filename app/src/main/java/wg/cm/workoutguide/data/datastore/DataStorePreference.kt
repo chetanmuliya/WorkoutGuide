@@ -14,11 +14,35 @@ class DataStorePreference(val context: Context) {
 
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("set1RepsSets")
+        val CURRENT_REPS_SET_KEY = stringPreferencesKey("currentRepsSets_key")
+        val CURRENT_WEIGHT_SET_KEY = stringPreferencesKey("currentWeightsSets_key")
         val SET1_REPS_SET_KEY = stringPreferencesKey("set1RepsSets_key")
         val SET2_REPS_SET_KEY = stringPreferencesKey("set2RepsSets_key")
         val SET3_REPS_SET_KEY = stringPreferencesKey("set3RepsSets_key")
         val SET4_REPS_SET_KEY = stringPreferencesKey("set4RepsSets_key")
         val SET_REPS_INDEX = intPreferencesKey("setRepsIndex_key")
+    }
+
+    val getCurrentSetRepsSets: Flow<String?> = context.dataStore.data
+        .map {
+            it[CURRENT_REPS_SET_KEY] ?: ""
+        }
+
+    suspend fun saveCurrentSetRepsSets(value: String){
+        context.dataStore.edit {
+            it[CURRENT_REPS_SET_KEY] = value
+        }
+    }
+
+    val getCurrentWeightSets: Flow<String?> = context.dataStore.data
+        .map {
+            it[CURRENT_WEIGHT_SET_KEY] ?: ""
+        }
+
+    suspend fun saveCurrentWeightSets(value: String){
+        context.dataStore.edit {
+            it[CURRENT_WEIGHT_SET_KEY] = value
+        }
     }
 
     val getRepsWeightIndex: Flow<Int?> = context.dataStore.data
@@ -73,6 +97,12 @@ class DataStorePreference(val context: Context) {
     suspend fun saveSet4RepsWeight(value: String){
         context.dataStore.edit {
             it[SET4_REPS_SET_KEY] = value
+        }
+    }
+
+    suspend fun deleteRepsWeights(){
+        context.dataStore.edit {
+            it.remove(SET1_REPS_SET_KEY)
         }
     }
 }
