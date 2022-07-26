@@ -40,7 +40,6 @@ import androidx.compose.foundation.layout.Box as Box
 fun ExerciseScreen(
     symbol: String
 ) {
-    val dataStore = DataStorePreference(LocalContext.current)
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )

@@ -18,9 +18,11 @@ import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import wg.cm.workoutguide.R
+import wg.cm.workoutguide.presentation.destinations.ExerciseListDestination
 import wg.cm.workoutguide.presentation.destinations.ExerciseScreenDestination
 import wg.cm.workoutguide.presentation.destinations.ProgramOverviewViewDestination
 import wg.cm.workoutguide.presentation.destinations.WorkoutInfoDestination
+import wg.cm.workoutguide.presentation.exercise_list.ExerciseList
 import wg.cm.workoutguide.presentation.home_screen.fontFamily
 import wg.cm.workoutguide.presentation.workout_screen.ExerciseScreen
 import wg.cm.workoutguide.ui.theme.Pink
@@ -121,8 +123,10 @@ fun WorkoutInfo(
             Button(
                 onClick = {
                     navigator.navigate(
-                    ExerciseScreenDestination("")
+                    //ExerciseScreenDestination("")
+                    ExerciseListDestination()
                     )
+
                           },
                 modifier = Modifier
                     .fillMaxWidth()
